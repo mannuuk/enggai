@@ -1,0 +1,47 @@
+<div class="main-right">
+    <div class="container-fluid">
+        <div class="top-right-head">
+            <h1>Posts</h1>
+            <div class="search">
+                <form>
+                    <!-- <mat-form-field>
+                        <input matInput [(ngModel)]="search" [ngModelOptions]="{ standalone: true }"
+                            placeholder="Search" #input (keyup)="applyFilters()" />
+                    </mat-form-field> -->
+                </form>
+            </div>
+        </div>
+        <div class="basic-content">
+            <mat-table [dataSource]="dataSource">
+                <!-- For ID -->
+                <!-- For User Name -->
+                <ng-container matColumnDef="title">
+                        <mat-header-cell *matHeaderCellDef> Title</mat-header-cell>
+                        <mat-cell *matCellDef="let post">{{ post.title }}</mat-cell>
+                    </ng-container>
+                <ng-container matColumnDef="created_at">
+                    <mat-header-cell *matHeaderCellDef> Created At</mat-header-cell>
+                    <mat-cell *matCellDef="let post">{{ post.created_at | date}}</mat-cell>
+                </ng-container>
+                <!-- For User location -->
+                <ng-container matColumnDef="author">
+                    <mat-header-cell *matHeaderCellDef> Author </mat-header-cell>
+                    <mat-cell *matCellDef="let post">{{ post.author }}</mat-cell>
+                </ng-container>
+                <!-- For User address -->
+                <!-- Action div -->
+                
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+            <!-- <mat-paginator #paginator [pageSize]="50" [pageSizeOptions]="[50, 100, 250,500]" *ngIf='isSuccess'>
+                </mat-paginator> -->
+            <mat-paginator [hidden]="(dataSource.totalCount$ | async) <= 0" [length]="dataSource.totalCount$ | async"
+                [pageSize]="limitPage[0]" [pageSizeOptions]="limitPage">
+            </mat-paginator>
+            <div class="norec" *ngIf="(dataSource.totalCount$ | async) <= 0">
+                No records found.
+            </div>
+        </div>
+    </div>
+</div>
